@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Fahmi Ibrahim — Data Science student and machine learning enthusiast based in Muscat, Oman." />
+  <meta name="theme-color" content="#0b1420" />
+  <title>Fahmi Ibrahim — Data Science & Entrepreneurship</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+:root {
+  --bg: #0b1420;
+  --surface: #121e2c;
+  --ink: #f4f6f8;
+  --muted: #93a4b3;
+  --line: rgba(244, 246, 248, 0.14);
+  --accent: #eab464;
+  --accent-soft: rgba(234, 180, 100, 0.16);
+  --aqua: #7fd8c9;
+  --periwinkle: #8ea9ff;
+  --max: 1240px;
+  --gutter: clamp(22px, 4vw, 58px);
+  --radius: 22px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; overflow-x: clip; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Inter", "Segoe UI", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+h1, h2, h3,
+.brand,
+.skill-index,
+.experience-meta p:first-child {
+  font-family: "Space Grotesk", "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+.hero-title,
+.hero-watermark {
+  font-family: "Anton", "Space Grotesk", "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+a { color: inherit; text-decoration: none; }
+button, a { -webkit-tap-highlight-color: transparent; }
+::selection { background: var(--accent); color: var(--bg); }
+
+.site-header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 40;
+  width: min(calc(100% - (var(--gutter) * 2)), var(--max));
+  margin: 0 auto;
+  padding: 24px 0;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  border-bottom: 1px solid transparent;
+  transition: background .25s ease, border-color .25s ease, padding .25s ease, backdrop-filter .25s ease;
+}
+.site-header.scrolled {
+  width: 100%;
+  max-width: none;
+  padding: 14px var(--gutter);
+  background: rgba(11, 20, 32, 0.82);
+  border-color: var(--line);
+  backdrop-filter: blur(16px);
+}
+.brand {
+  justify-self: center;
+  font-weight: 750;
+  font-size: 20px;
+  letter-spacing: -.02em;
+  transition: color .2s ease, transform .2s ease;
+}
+.brand:hover { color: var(--accent); transform: translateY(-1px); }
+.nav-left { justify-self: start; }
+.nav-right { justify-self: end; }
+.nav {
+  display: flex;
+  gap: clamp(18px, 3vw, 38px);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-size: 12px;
+  font-weight: 600;
+}
+.nav a {
+  position: relative;
+  color: rgba(244, 246, 248, 0.8);
+}
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: -5px;
+  height: 1px;
+  background: var(--ink);
+  transition: right .22s ease;
+}
+.nav a:hover::after { right: 0; }
+
+.section-shell {
+  width: min(calc(100% - (var(--gutter) * 2)), var(--max));
+  margin: 0 auto;
+}
+
+.hero {
+  min-height: 100svh;
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(320px, .55fr);
+  align-items: center;
+  gap: 5vw;
+  padding-top: 110px;
+  padding-bottom: 56px;
+}
+.hero-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  font-size: clamp(160px, 23vw, 360px);
+  line-height: 1;
+  color: rgba(244, 246, 248, 0.22);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  will-change: transform;
+}
+.hero-copy { position: relative; z-index: 2; }
+.eyebrow,
+.section-kicker,
+.section-note {
+  margin: 0;
+  font-size: 13px;
+  letter-spacing: .04em;
+  color: var(--muted);
+}
+.hero-title {
+  margin: 16px 0 18px;
+  display: flex;
+  flex-direction: column;
+  font-size: clamp(78px, 12vw, 176px);
+  line-height: .82;
+  letter-spacing: -.01em;
+  font-weight: 400;
+}
+.hero-line {
+  display: block;
+  opacity: 0;
+  transform: translateY(42px);
+  animation: heroRise .9s cubic-bezier(.2,.75,.15,1) forwards;
+}
+.hero-line-outline {
+  margin-left: .18em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--ink);
+  animation-delay: .14s;
+}
+.hero-tagline {
+  max-width: 610px;
+  margin: 30px 0 0;
+  font-size: clamp(18px, 2vw, 26px);
+  line-height: 1.35;
+  letter-spacing: -.025em;
+  color: rgba(244, 246, 248, 0.82);
+  opacity: 0;
+  transform: translateY(22px);
+  animation: heroRise .75s .3s cubic-bezier(.2,.75,.15,1) forwards;
+}
+.hero-actions {
+  display: flex;
+  gap: 28px;
+  margin-top: 34px;
+  opacity: 0;
+  animation: heroFade .7s .48s ease forwards;
+}
+.text-link {
+  display: inline-flex;
+  gap: 9px;
+  align-items: center;
+  font-size: 14px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--ink);
+}
+.text-link span { transition: transform .2s ease; }
+.text-link:hover span { transform: translate(3px, 3px); }
+
+.hero-orbit {
+  position: relative;
+  z-index: 2;
+  justify-self: end;
+  width: clamp(280px, 29vw, 420px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  transform: scale(.92);
+  animation: orbitIn .9s .35s cubic-bezier(.2,.75,.15,1) forwards;
+}
+.orbit-track {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(244, 246, 248, 0.22);
+}
+.orbit-track-one { inset: 4%; animation: orbitSpin 22s linear infinite; }
+.orbit-track-two { inset: 22%; border-style: dashed; animation: orbitSpin 15s linear infinite reverse; }
+.orbit-track::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+.orbit-core {
+  width: 45%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--bg);
+  display: grid;
+  place-content: center;
+  gap: 4px;
+  text-align: center;
+  box-shadow: 0 28px 80px rgba(234, 180, 100, .28);
+}
+.orbit-core span { font-size: clamp(11px, .95vw, 14px); letter-spacing: .13em; }
+.orbit-node {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--bg);
+  border-radius: 50%;
+  background: var(--aqua);
+  box-shadow: 0 0 0 1px var(--aqua);
+}
+.orbit-node-a { top: 14%; right: 23%; }
+.orbit-node-b { bottom: 18%; left: 14%; background: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.orbit-node-c { right: 5%; bottom: 35%; background: var(--periwinkle); box-shadow: 0 0 0 1px var(--periwinkle); }
+
+.scroll-cue {
+  position: absolute;
+  bottom: 18px;
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.scroll-line { width: 58px; height: 1px; background: var(--line); position: relative; overflow: hidden; }
+.scroll-line::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--ink);
+  transform: translateX(-100%);
+  animation: scrollLine 2.2s 1s ease-in-out infinite;
+}
+
+.content-section {
+  padding: clamp(105px, 13vw, 180px) 0;
+  border-top: 1px solid var(--line);
+}
+.section-heading { max-width: 880px; margin-bottom: clamp(60px, 8vw, 105px); }
+.section-heading-row { max-width: none; display: flex; justify-content: space-between; align-items: end; gap: 28px; }
+.section-heading h2,
+.contact h2 {
+  margin: 13px 0 0;
+  font-size: clamp(43px, 6.5vw, 88px);
+  line-height: .98;
+  letter-spacing: -.055em;
+  font-weight: 650;
+}
+.section-note { padding-bottom: 10px; text-align: right; }
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(45px, 8vw, 120px);
+  align-items: start;
+}
+.about-lead {
+  margin: 0;
+  font-family: "Space Grotesk", "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: clamp(28px, 3.3vw, 47px);
+  line-height: 1.22;
+  letter-spacing: -.015em;
+  font-weight: 600;
+  color: var(--ink);
+}
+.about-copy { max-width: 560px; }
+.about-copy p {
+  margin: 0 0 24px;
+  font-size: 17px;
+  line-height: 1.68;
+  color: rgba(244, 246, 248, 0.72);
+}
+
+.skill-list { border-top: 1px solid var(--ink); }
+.skill-row {
+  display: grid;
+  grid-template-columns: 72px 1fr auto;
+  gap: 24px;
+  align-items: center;
+  padding: 31px 10px;
+  border-bottom: 1px solid var(--line);
+  transition: background .2s ease, padding .2s ease;
+}
+.skill-row:hover { background: rgba(244, 246, 248, .05); padding-left: 20px; padding-right: 20px; }
+.skill-index { font-size: 12px; color: var(--accent); }
+.skill-row h3 { margin: 0 0 7px; font-size: clamp(21px, 2vw, 30px); letter-spacing: -.03em; font-weight: 600; }
+.skill-row p { margin: 0; max-width: 760px; color: var(--muted); line-height: 1.55; }
+.skill-symbol { font-size: 24px; transition: transform .2s ease; }
+.skill-row:hover .skill-symbol { transform: translate(4px, -4px); }
+
+.certificates { margin-top: clamp(50px, 7vw, 80px); }
+.certificates-kicker { margin-bottom: 18px; }
+.cert-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.cert-chip {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 550;
+  color: var(--ink);
+  background: rgba(244, 246, 248, .03);
+  transition: border-color .2s ease, background .2s ease, transform .2s ease;
+}
+a.cert-chip:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  transform: translateY(-2px);
+}
+.cert-issuer {
+  font-size: 11px;
+  font-weight: 450;
+  letter-spacing: .02em;
+  color: var(--muted);
+}
+
+.experience-list { display: grid; gap: 18px; }
+.experience-card {
+  display: grid;
+  grid-template-columns: .75fr 1.25fr;
+  gap: clamp(35px, 7vw, 90px);
+  padding: clamp(30px, 4vw, 48px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(244, 246, 248, .035);
+  transition: transform .22s ease, background .22s ease, border-color .22s ease;
+}
+.experience-card:hover { transform: translateY(-4px); background: var(--surface); border-color: rgba(244, 246, 248, .28); }
+.experience-meta p { margin: 0 0 8px; color: var(--muted); font-size: 15px; }
+.experience-meta p:first-child { color: var(--accent); font-weight: 600; font-size: 18px; letter-spacing: -.01em; }
+.experience-content h3 { margin: 0 0 16px; font-size: clamp(25px, 2.8vw, 38px); letter-spacing: -.04em; font-weight: 600; }
+.experience-content p { margin: 0; color: rgba(244, 246, 248, 0.72); line-height: 1.65; max-width: 680px; }
+
+.contact {
+  padding: clamp(110px, 14vw, 190px) 0 34px;
+  border-top: 1px solid var(--line);
+}
+.contact-top { max-width: 950px; margin-bottom: 74px; }
+.contact-grid { border-top: 1px solid var(--ink); }
+.contact-link {
+  display: grid;
+  grid-template-columns: 150px 1fr auto;
+  align-items: center;
+  gap: 24px;
+  padding: 27px 4px;
+  border-bottom: 1px solid var(--line);
+  transition: padding .2s ease, background .2s ease;
+}
+.contact-link:hover:not(.static-contact) { padding-left: 14px; padding-right: 14px; background: rgba(244, 246, 248, .05); }
+.contact-link span { color: var(--muted); font-size: 13px; }
+.contact-link strong { font-size: clamp(17px, 2vw, 23px); font-weight: 550; letter-spacing: -.02em; overflow-wrap: anywhere; }
+.contact-link > span:last-child { color: var(--ink); font-size: 20px; }
+.footer {
+  margin-top: 100px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.footer p { margin: 0; }
+.footer a:hover { color: var(--ink); }
+
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  border-radius: 50%;
+  z-index: 9999;
+  opacity: 0;
+  will-change: transform;
+}
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  transform: translate(-50%, -50%);
+}
+.cursor-ring {
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(244, 246, 248, .5);
+  transform: translate(-50%, -50%);
+  transition: width .18s ease, height .18s ease, background .18s ease, border-color .18s ease;
+  mix-blend-mode: screen;
+}
+body.cursor-active .cursor-dot,
+body.cursor-active .cursor-ring { opacity: 1; }
+body.cursor-hover .cursor-ring {
+  width: 62px;
+  height: 62px;
+  background: rgba(234, 180, 100, .14);
+  border-color: rgba(234, 180, 100, .65);
+}
+body.cursor-soft .cursor-ring {
+  width: 48px;
+  height: 48px;
+  background: rgba(127, 216, 201, .14);
+}
+
+@keyframes heroRise { to { opacity: 1; transform: translateY(0); } }
+@keyframes heroFade { to { opacity: 1; } }
+@keyframes orbitIn { to { opacity: 1; transform: scale(1); } }
+@keyframes orbitSpin { to { transform: rotate(360deg); } }
+@keyframes scrollLine { 0% { transform: translateX(-100%); } 45%, 55% { transform: translateX(0); } 100% { transform: translateX(100%); } }
+
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; align-content: center; padding-top: 125px; }
+  .hero-title { font-size: clamp(72px, 17vw, 130px); }
+  .hero-orbit { position: absolute; width: min(46vw, 310px); right: -9vw; top: 22%; opacity: .18 !important; }
+  .hero-copy { max-width: 800px; }
+  .about-grid, .experience-card { grid-template-columns: 1fr; }
+  .about-copy { max-width: none; }
+  .section-heading-row { display: block; }
+  .section-note { margin-top: 18px; text-align: left; }
+}
+
+@media (max-width: 680px) {
+  :root { --gutter: 20px; }
+  .site-header { padding-top: 18px; }
+  .nav { gap: 16px; }
+  .nav-left { display: none; }
+  .nav-right a:first-child { display: none; }
+  .hero { min-height: 92svh; padding-bottom: 40px; }
+  .hero-title { margin-top: 22px; font-size: clamp(68px, 24vw, 104px); line-height: .8; }
+  .hero-line-outline { margin-left: .06em; }
+  .hero-tagline { max-width: 92%; font-size: 19px; }
+  .hero-actions { flex-direction: column; align-items: flex-start; gap: 17px; }
+  .hero-orbit { width: 260px; top: 16%; right: -110px; }
+  .scroll-cue { display: none; }
+  .content-section { padding: 92px 0; }
+  .section-heading { margin-bottom: 54px; }
+  .section-heading h2, .contact h2 { font-size: clamp(40px, 12.5vw, 58px); }
+  .about-lead { font-size: 31px; }
+  .about-copy p { font-size: 16px; }
+  .skill-row { grid-template-columns: 38px 1fr auto; gap: 12px; padding: 25px 0; }
+  .skill-row:hover { padding-left: 8px; padding-right: 8px; }
+  .skill-row p { font-size: 14px; }
+  .experience-card { padding: 26px 22px; }
+  .contact-link { grid-template-columns: 1fr auto; gap: 9px 18px; }
+  .contact-link > span:first-child { grid-column: 1 / -1; }
+  .contact-link strong { font-size: 18px; }
+  .footer { margin-top: 70px; }
+}
+
+@media (pointer: coarse) {
+  .cursor-dot, .cursor-ring { display: none !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+
+</style>
+</head>
+<body>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <nav class="nav nav-left" aria-label="Primary navigation">
+      <a class="interactive" href="#top">Home</a>
+      <a class="interactive" href="#projects">Projects</a>
+    </nav>
+    <a class="brand interactive" href="#top" aria-label="Fahmi Ibrahim home">FI.</a>
+    <nav class="nav nav-right" aria-label="Secondary navigation">
+      <a class="interactive" href="#about">About</a>
+      <a class="interactive" href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero section-shell" aria-labelledby="hero-title">
+      <span class="hero-watermark" aria-hidden="true">FAHMI</span>
+
+      <div class="hero-copy">
+        <p class="eyebrow">Muscat, Oman</p>
+        <h1 id="hero-title" class="hero-title">
+          <span class="hero-line hero-line-solid">Fahmi</span>
+          <span class="hero-line hero-line-outline">Ibrahim</span>
+        </h1>
+        <p class="hero-tagline">
+          Data Science student and machine learning enthusiast based in Muscat, Oman.
+        </p>
+        <div class="hero-actions">
+          <a class="text-link interactive" href="#experience">View experience <span aria-hidden="true">↘</span></a>
+          <a class="text-link interactive" href="#contact">Get in touch <span aria-hidden="true">↘</span></a>
+        </div>
+      </div>
+
+      <div class="hero-orbit" aria-hidden="true">
+        <div class="orbit-track orbit-track-one"></div>
+        <div class="orbit-track orbit-track-two"></div>
+        <div class="orbit-core">
+          <span>DATA</span>
+          <span>ML</span>
+          <span>TECH</span>
+        </div>
+        <span class="orbit-node orbit-node-a"></span>
+        <span class="orbit-node orbit-node-b"></span>
+        <span class="orbit-node orbit-node-c"></span>
+      </div>
+
+      <div class="scroll-cue" aria-hidden="true">
+        <span>Scroll</span>
+        <span class="scroll-line"></span>
+      </div>
+    </section>
+
+    <section class="section-shell content-section" id="about">
+      <div class="section-heading">
+        <p class="section-kicker">About</p>
+        <h2>Data, business and technology, with a practical bias.</h2>
+      </div>
+      <div class="about-grid">
+        <p class="about-lead">
+          I am a Data Science undergraduate at Modern College of Business and Science in Muscat, with graduation expected around May 2026.
+        </p>
+        <div class="about-copy">
+          <p>
+            I am results-driven, with hands-on experience in machine learning and predictive analytics and I am proficient across the full ML pipeline from data preprocessing and statistical analysis to model training and deployment.
+          </p>
+          <p>
+            I am active with AmCham Oman’s Technology &amp; AI Committee and Tourism Committee. I also completed a two-month internship with AmCham Oman, supporting member outreach, research and event coordination.
+          </p>
+          <p>
+            I speak English (fluent), Hindi (fluent) and Arabic (beginner) and I hold a valid Omani driving license.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-shell content-section" id="education">
+      <div class="section-heading">
+        <p class="section-kicker">Education</p>
+        <h2>Building the fundamentals, one term at a time.</h2>
+      </div>
+      <div class="experience-list">
+        <article class="experience-card interactive-soft">
+          <div class="experience-meta">
+            <p>Modern College of Business and Science (MCBS)</p>
+            <p>Muscat, Oman · Sep 2022 – May 2026</p>
+          </div>
+          <div class="experience-content">
+            <h3>Bachelor of Computer Science, Data Science</h3>
+            <p>GPA: 3.06. Dean’s List / strong academic standing throughout the program.</p>
+          </div>
+        </article>
+        <article class="experience-card interactive-soft">
+          <div class="experience-meta">
+            <p>Indian School Muscat</p>
+            <p>Muscat, Oman · Graduated 2022</p>
+          </div>
+          <div class="experience-content">
+            <h3>Secondary Education</h3>
+            <p>Completed secondary schooling before progressing to a Computer Science, Data Science degree.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-shell content-section" id="skills">
+      <div class="section-heading section-heading-row">
+        <div>
+          <p class="section-kicker">Skills &amp; certifications</p>
+          <h2>Useful skills, not decorative progress bars.</h2>
+        </div>
+        <p class="section-note">Data · Cloud · Cybersecurity · Operations</p>
+      </div>
+
+      <div class="skill-list">
+        <article class="skill-row interactive-soft">
+          <div class="skill-index">01</div>
+          <div>
+            <h3>Languages &amp; tools</h3>
+            <p>Python, SQL, Bash, C, C++, Java, R · Matplotlib, Seaborn, Jupyter Notebooks · Git, GitHub, REST API integration · Linux, Unix.</p>
+          </div>
+          <span class="skill-symbol" aria-hidden="true">↗</span>
+        </article>
+        <article class="skill-row interactive-soft">
+          <div class="skill-index">02</div>
+          <div>
+            <h3>Data science &amp; analysis</h3>
+            <p>Data preprocessing, exploratory data analysis (EDA), statistical analysis, CRM systems and Excel-based analysis and reporting.</p>
+          </div>
+          <span class="skill-symbol" aria-hidden="true">↗</span>
+        </article>
+        <article class="skill-row interactive-soft">
+          <div class="skill-index">03</div>
+          <div>
+            <h3>Research &amp; coordination</h3>
+            <p>Research, outreach, meeting support, survey analysis and event coordination through AmCham committee work.</p>
+          </div>
+          <span class="skill-symbol" aria-hidden="true">↗</span>
+        </article>
+        <article class="skill-row interactive-soft">
+          <div class="skill-index">04</div>
+          <div>
+            <h3>Soft skills</h3>
+            <p>Account management, client communication, leadership, teamwork and stakeholder management.</p>
+          </div>
+          <span class="skill-symbol" aria-hidden="true">↗</span>
+        </article>
+      </div>
+
+      <div class="certificates">
+        <p class="section-kicker certificates-kicker">Certificates</p>
+        <div class="cert-grid">
+          <span class="cert-chip">Machine Learning Specialization<span class="cert-issuer">DeepLearning.AI / Coursera</span></span>
+          <span class="cert-chip">Python for Everybody<span class="cert-issuer">University of Michigan / Coursera</span></span>
+          <a class="cert-chip interactive" href="certificates/ibm-cloud-essentials.pdf" target="_blank" rel="noopener">IBM Cloud Essentials<span class="cert-issuer">IBM / Cognitive Class</span></a>
+          <a class="cert-chip interactive" href="https://courses.cognitiveclass.ai/certificates/3f2c92d0a4f94578a3977adaf2ca1758" target="_blank" rel="noopener">Data Science Methodology<span class="cert-issuer">IBM / Cognitive Class</span></a>
+          <a class="cert-chip interactive" href="https://courses.cognitiveclass.ai/certificates/888582d45dfe47348fbb4281ff625eec" target="_blank" rel="noopener">Build Your Own Chatbot<span class="cert-issuer">IBM / Cognitive Class</span></a>
+          <a class="cert-chip interactive" href="https://courses.cognitiveclass.ai/certificates/ad5681e02654425eace8dd8af4c00f8d" target="_blank" rel="noopener">Data Analysis with Python<span class="cert-issuer">IBM / Cognitive Class</span></a>
+          <a class="cert-chip interactive" href="https://www.credly.com/badges/5248d68e-fa0e-440a-bf4a-f21d0a1ce03a" target="_blank" rel="noopener">Introduction to Cybersecurity<span class="cert-issuer">Cisco Networking Academy</span></a>
+          <a class="cert-chip interactive" href="https://www.credly.com/badges/7a552958-2e4a-466a-8a44-bc4d1b460447" target="_blank" rel="noopener">Data Analytics Essentials<span class="cert-issuer">Cisco Networking Academy</span></a>
+          <a class="cert-chip interactive" href="https://www.hackerrank.com/certificates/337bd1357eb7" target="_blank" rel="noopener">Python<span class="cert-issuer">HackerRank</span></a>
+          <a class="cert-chip interactive" href="https://www.hackerrank.com/certificates/ff22c65183ba" target="_blank" rel="noopener">CSS<span class="cert-issuer">HackerRank</span></a>
+          <a class="cert-chip interactive" href="https://www.hackerrank.com/certificates/812b077a5544" target="_blank" rel="noopener">JavaScript<span class="cert-issuer">HackerRank</span></a>
+          <a class="cert-chip interactive" href="https://www.hackerrank.com/certificates/6e54c45ab501" target="_blank" rel="noopener">SQL<span class="cert-issuer">HackerRank</span></a>
+          <a class="cert-chip interactive" href="https://www.hackerrank.com/certificates/e592904064b0" target="_blank" rel="noopener">C#<span class="cert-issuer">HackerRank</span></a>
+          <a class="cert-chip interactive" href="https://www.hackerrank.com/certificates/46ff6bbfd883" target="_blank" rel="noopener">Software Engineer<span class="cert-issuer">HackerRank</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-shell content-section" id="projects">
+      <div class="section-heading">
+        <p class="section-kicker">Projects</p>
+        <h2>Machine learning, built end to end.</h2>
+      </div>
+      <div class="experience-list">
+        <article class="experience-card interactive-soft">
+          <div class="experience-meta">
+            <p>Capstone Project</p>
+            <p>Prediction of Mental Health in Women</p>
+          </div>
+          <div class="experience-content">
+            <h3>End-to-end ML pipeline for mental health prediction</h3>
+            <p>
+              Developed an end-to-end machine learning pipeline to predict mental health outcomes in women using real-world datasets, applying data preprocessing, feature engineering and exploratory data analysis. Trained and evaluated multiple classification models, including logistic regression and ensemble methods, achieving high predictive accuracy and presented findings with visualizations and actionable insights.
+            </p>
+          </div>
+        </article>
+        <article class="experience-card interactive-soft">
+          <div class="experience-meta">
+            <p>Applied AI &amp; achievements</p>
+            <p>Academic &amp; personal projects</p>
+          </div>
+          <div class="experience-content">
+            <h3>CNN classifiers &amp; predictive pipelines</h3>
+            <p>
+              Built and trained AI models for OCR, face detection and emotion recognition, including CNN image classifiers reaching 90%+ accuracy alongside predictive analytics pipelines. Maintained Dean’s List / strong academic standing at MCBS with a 3.06 GPA.
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-shell content-section" id="experience">
+      <div class="section-heading">
+        <p class="section-kicker">Experience &amp; involvement</p>
+        <h2>Where I have been putting the work in.</h2>
+      </div>
+
+      <div class="experience-list">
+        <article class="experience-card interactive-soft">
+          <div class="experience-meta">
+            <p>AmCham Oman</p>
+            <p>Technology &amp; AI Committee · Tourism Committee</p>
+          </div>
+          <div class="experience-content">
+            <h3>Committee involvement &amp; internship</h3>
+            <p>
+              Supported research, outreach lists, event coordination, meeting minutes and survey analysis. Previously completed a two-month internship focused on member outreach, research and event support.
+            </p>
+          </div>
+        </article>
+
+        <article class="experience-card interactive-soft">
+          <div class="experience-meta">
+            <p>Website &amp; dashboard prototypes</p>
+          </div>
+          <div class="experience-content">
+            <h3>Design &amp; development work</h3>
+            <p>
+              Designed and developed website prototypes and dashboards, applying Python, C, Java, HTML and Linux across academic and project work.
+            </p>
+          </div>
+        </article>
+
+        <article class="experience-card interactive-soft">
+          <div class="experience-meta">
+            <p>Research &amp; sustainability</p>
+            <p>Conferences · Hackathons · Sustainability initiatives</p>
+          </div>
+          <div class="experience-content">
+            <h3>Technical papers &amp; sustainable systems</h3>
+            <p>
+              Conducted research and presented technical papers at international conferences and organized and coordinated hackathons, congresses and sustainability initiatives, including developing a hydroponic system and a reverse vending machine.
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="contact section-shell" id="contact">
+      <div class="contact-top">
+        <p class="section-kicker">Contact</p>
+        <h2>Open to conversations around data, technology and business.</h2>
+      </div>
+      <div class="contact-grid">
+        <a class="contact-link interactive" href="mailto:fahfahmi9514@gmail.com">
+          <span>Email</span>
+          <strong>fahfahmi9514@gmail.com</strong>
+          <span aria-hidden="true">↗</span>
+        </a>
+        <a class="contact-link interactive" href="tel:+96892464559">
+          <span>Phone</span>
+          <strong>+968 9246 4559</strong>
+          <span aria-hidden="true">↗</span>
+        </a>
+        <div class="contact-link static-contact">
+          <span>Location</span>
+          <strong>Muscat, Oman</strong>
+          <span aria-hidden="true">⌁</span>
+        </div>
+      </div>
+      <footer class="footer">
+        <p>© <span id="year"></span> Fahmi Ibrahim</p>
+        <a class="interactive" href="#top">Back to top ↑</a>
+      </footer>
+    </section>
+  </main>
+
+  <script>
+(() => {
+  const body = document.body;
+  const dot = document.querySelector('.cursor-dot');
+  const ring = document.querySelector('.cursor-ring');
+  const header = document.querySelector('.site-header');
+  const year = document.getElementById('year');
+
+  year.textContent = new Date().getFullYear();
+
+  const finePointer = window.matchMedia('(pointer: fine)').matches;
+  if (finePointer) {
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let ringX = mouseX;
+    let ringY = mouseY;
+
+    const placeDot = () => {
+      dot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+    };
+
+    const animateRing = () => {
+      ringX += (mouseX - ringX) * 0.16;
+      ringY += (mouseY - ringY) * 0.16;
+      ring.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
+      requestAnimationFrame(animateRing);
+    };
+
+    window.addEventListener('mousemove', (event) => {
+      mouseX = event.clientX;
+      mouseY = event.clientY;
+      body.classList.add('cursor-active');
+      placeDot();
+    }, { passive: true });
+
+    document.addEventListener('mouseleave', () => body.classList.remove('cursor-active'));
+    document.addEventListener('mouseenter', () => body.classList.add('cursor-active'));
+
+    document.querySelectorAll('.interactive').forEach((element) => {
+      element.addEventListener('mouseenter', () => body.classList.add('cursor-hover'));
+      element.addEventListener('mouseleave', () => body.classList.remove('cursor-hover'));
+    });
+
+    document.querySelectorAll('.interactive-soft').forEach((element) => {
+      element.addEventListener('mouseenter', () => body.classList.add('cursor-soft'));
+      element.addEventListener('mouseleave', () => body.classList.remove('cursor-soft'));
+    });
+
+    animateRing();
+  }
+
+  const updateHeader = () => {
+    header.classList.toggle('scrolled', window.scrollY > 24);
+  };
+  updateHeader();
+  window.addEventListener('scroll', updateHeader, { passive: true });
+
+  const watermark = document.querySelector('.hero-watermark');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (watermark && !reduceMotion) {
+    const updateWatermark = () => {
+      const scale = 1 + Math.min(window.scrollY / 900, 0.55);
+      watermark.style.transform = `translate(-50%, -50%) scale(${scale})`;
+    };
+    updateWatermark();
+    window.addEventListener('scroll', updateWatermark, { passive: true });
+  }
+
+  document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach((link) => {
+    link.addEventListener('click', (event) => {
+      const target = document.querySelector(link.getAttribute('href'));
+      if (!target) return;
+      event.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+})();
+
+</script>
+</body>
+</html>
